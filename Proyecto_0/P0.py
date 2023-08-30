@@ -38,6 +38,7 @@ def lexer (programa):
     for palabra in lista:
         if "jump" in palabra:
             tokens.append(("jump", palabra))
+            #ESTO ES EJEMPLO, MEJOR EMPEZAR DESDE 0
             
     print(tokens)
 lexer(programa)
