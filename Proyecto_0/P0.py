@@ -10,7 +10,7 @@
 
 #EJ LISTA DE COMANDOS
 
-com_simples = ["walk(#)","leap(#)","turn(#)","turnto(#)","drop(#)","get(#)","grab(#)","letgo(#)"]
+com_simples = ["walk(#);","leap(#);","turn(#);","turnto(#);","drop(#);","get(#);","grab(#);","letgo(#);"]
 com_conjuntos = ["TODOS LOS COMANDOS QUE RECIBAN MAS DE 1 PARAMETRO"]
 com_not = ["not: cond"]
 
@@ -19,26 +19,39 @@ com_not = ["not: cond"]
 variables = {"nom":"#"}
 
 #EJ LISTA DE TOKENS
-"#" = ["1","2","3","4","5","6","7","8","9","0"]
-"ORI" = ["north","south","east","west"] 
-"DIR" = ["front, left, right, back"]
+NUM = ["1","2","3","4","5","6","7","8","9","0"]
+ORI = ["north","south","east","west"] 
+DIR = ["front, left, right, back"]
 
-programa = str(input("Ingrese el programa: "))
+programa = "defVar nom 0\ndefVar x 0\ndefVar y 0\ndefVar one 0\ndefProc putCB (c, b )\n{\n\tdrop(c);\n\tletGo(b);\n\twalk(n)\n}\ndefProc goNorth()\n{\n\twhile can(walk(1, north)) { walk(1 , north)}\n}\ndefProc goWest()\n{\n\tif can(walk(1, west)) { walk(1, west)} else nop()\n}\n{\njump(3 ,3);\nputCB(2 ,1)\n}"
 def funcion1 (programa):
     return programa
 #print("El programa es: ", parser(programa))
 
 def lexer (programa):
-    programa.replace("\t", "")
-    programa.replace("\n", "")
-    #cambiar todo a minusculas  
-    lista = programa.split(" ")
-    print(lista)
-    tokens = []
+    programa = programa.lower()
+    programa = programa.replace("\t", " ")
+    programa = programa.replace("\n", " ")
+    programa = programa.replace("\r", " ")
+    lista_palabras = programa.split()   
+    
+    print(lista_palabras) #PROBLEMA SE QUEDAN PEGADAS ALGUNAS PALABRAS EJ "(3," O "walk(1," despegar
+    for palabra in lista_palabras:
+        #if len(palabra) >1:
+            #palabra = palabra.split()
+            #print(palabra)
+        if palabra in NUM:
+            #print(palabra)
+            programa = programa.replace(palabra, "#")
+        if palabra in ORI:
+            programa = programa.replace(palabra, "ORI")
+            
+    print(programa)
+    """tokens = []
     for palabra in lista:
         if "jump" in palabra:
             tokens.append(("jump", palabra))
             #ESTO ES EJEMPLO, MEJOR EMPEZAR DESDE 0
             
-    print(tokens)
+    print(tokens)"""
 lexer(programa)
